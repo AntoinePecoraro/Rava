@@ -23,12 +23,12 @@ public final class AVelo extends Activite {
     @Override
     public String toString() {
         return "AVelo{" +
-                "id=" + id +
-                ", nom='" + nom + '\'' +
-                ", duree=" + duree +
-                ", date=" + date +
-                ", distance=" + distance +
-                ", watt=" + watt +
+                "id= " + id +
+                ", nom= " + nom +
+                ", duree= " + duree +
+                ", date= " + date +
+                ", distance= " + distance +
+                ", watt= " + watt +
                 '}';
     }
 }
