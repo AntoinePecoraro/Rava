@@ -1,6 +1,10 @@
 package RavaClass;
 
 import java.util.Objects;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 public class Personne {
     private String nom = "Doe";
@@ -8,6 +12,7 @@ public class Personne {
     private int age = 21;
     private int weight = 70;
     private char sexe = 'M';
+    private BufferedImage photo = null;
 
     public Personne() {
 
@@ -19,6 +24,11 @@ public class Personne {
         this.age = age;
         this.weight = weight;
         this.sexe = sexe;
+    }
+
+    public Personne(String nom, String prenom, int age, int weight, char sexe, BufferedImage photo) {
+        this(nom, prenom, age, weight, sexe);
+        this.photo = photo;
     }
 
     //region Setter et Getter
@@ -49,6 +59,29 @@ public class Personne {
     public void setWeight(int weight) {
         this.weight = weight;
     }
+
+    public BufferedImage getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(BufferedImage photo) {
+        this.photo = photo;
+    }
+
+    public boolean setPhotoFromPath(String path) {
+        if (path == null || path.isEmpty()) {
+            this.photo = null;
+            return true;
+        }
+
+        try {
+            this.photo = ImageIO.read(new File(path));
+            return true;
+        } catch (IOException e) {
+            System.err.println("Impossible de charger la photo : " + e.getMessage());
+            return false;
+        }
+    }
     //endregion
 
 
@@ -67,6 +100,7 @@ public class Personne {
                 ", sexe= " + sexe +
                 ", age= " + age +
                 ", weight= " + weight +
+                ", photo= " + (photo != null ? "présente" : "absente") +
                 '}';
     }
 }

@@ -78,6 +78,7 @@ class PersonneTest {
     public void testToString() {
         Personne personne = new Personne();
 
-        assertEquals("Personne{nom= Doe, prenom= John, sexe= M, age= 21, weight= 70}", personne.toString());
+        assertEquals("Personne{nom= Doe, prenom= John, sexe= M, age= 21, weight= 70, photo= absente}", personne.toString());
     }
+
 }
