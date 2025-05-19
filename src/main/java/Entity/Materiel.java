@@ -1,17 +1,20 @@
-package RavaClass;
+package Entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Materiel {
+public class Materiel implements Identifiable, Serializable {
     private String marque = null;
     private String modele = null;
+    private int id = 0;
 
     public Materiel() {
     }
 
-    public Materiel(String marque, String modele) {
+    public Materiel(String marque, String modele, int id) {
         this.marque = marque;
         this.modele = modele;
+        this.id = id;
     }
 
     //region Setter et Getter
@@ -30,13 +33,23 @@ public class Materiel {
     public void setModele(String modele) {
         this.modele = modele;
     }
+
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     //endregion
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Materiel materiel = (Materiel) o;
-        return Objects.equals(getMarque(), materiel.getMarque()) && Objects.equals(getModele(), materiel.getModele());
+        return Objects.equals(getId(), materiel.getId());
     }
 
     @Override

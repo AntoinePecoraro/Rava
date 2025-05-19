@@ -1,4 +1,4 @@
-package RavaClass;
+package Entity;
 
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +11,7 @@ class AVeloTest {
     @Test
     public void testGetNom() {
         AVelo velo = new AVelo();
-        AVelo velo2 = new AVelo("Sortie dans l'après midi", 120, 11000, 188, 1, LocalDate.of(1989, 6, 4));
+        AVelo velo2 = new AVelo("Sortie dans l'après midi", 120, 11000, 188, 1, LocalDate.of(1989, 6, 4), 0, 0);
 
         assertNull(velo.getNom());
         assertEquals("Sortie dans l'après midi", velo2.getNom());
@@ -20,7 +20,7 @@ class AVeloTest {
     @Test
     public void testGetDuree() {
         AVelo velo = new AVelo();
-        AVelo velo2 = new AVelo("Sortie dans l'après midi", 120, 11000, 188, 1, LocalDate.of(1989, 6, 4));
+        AVelo velo2 = new AVelo("Sortie dans l'après midi", 120, 11000, 188, 1, LocalDate.of(1989, 6, 4), 0, 0);
 
         assertEquals(0, velo.getDuree());
         assertEquals(120, velo2.getDuree());
@@ -29,7 +29,7 @@ class AVeloTest {
     @Test
     public void testGetDistance() {
         AVelo velo = new AVelo();
-        AVelo velo2 = new AVelo("Sortie dans l'après midi", 120, 11000, 188, 1, LocalDate.of(1989, 6, 4));
+        AVelo velo2 = new AVelo("Sortie dans l'après midi", 120, 11000, 188, 1, LocalDate.of(1989, 6, 4), 0, 0);
 
         assertEquals(0, velo.getDistance());
         assertEquals(11000, velo2.getDistance());
@@ -46,7 +46,7 @@ class AVeloTest {
     @Test
     public void testGetId() {
         AVelo velo = new AVelo();
-        AVelo velo2 = new AVelo("Sortie dans l'après midi", 120, 11000, 188, 1, LocalDate.of(1989, 6, 4));
+        AVelo velo2 = new AVelo("Sortie dans l'après midi", 120, 11000, 188, 1, LocalDate.of(1989, 6, 4), 0, 0);
 
         assertEquals(0, velo.getId());
         assertEquals(1, velo2.getId());
@@ -55,7 +55,7 @@ class AVeloTest {
     @Test
     public void testGetDate() {
         AVelo velo = new AVelo();
-        AVelo velo2 = new AVelo("Sortie dans l'après midi", 120, 11000, 188, 1, LocalDate.of(1989, 6, 4));
+        AVelo velo2 = new AVelo("Sortie dans l'après midi", 120, 11000, 188, 1, LocalDate.of(1989, 6, 4), 0, 0);
 
         assertEquals(LocalDate.now(), velo.getDate());
         assertEquals(LocalDate.of(1989, 6, 4), velo2.getDate());
@@ -64,8 +64,8 @@ class AVeloTest {
     @Test
     public void testEquals() {
         AVelo velo = new AVelo();
-        AVelo velo2 = new AVelo("Sortie dans l'après midi", 120, 11000, 188, 1, LocalDate.of(1989, 6, 4));
-        AVelo velo3 = new AVelo("Sortie dans l'après midi", 120, 11000, 188, 1, LocalDate.of(1989, 6, 4));
+        AVelo velo2 = new AVelo("Sortie dans l'après midi", 120, 11000, 188, 1, LocalDate.of(1989, 6, 4), 0, 0);
+        AVelo velo3 = new AVelo("Sortie dans l'après midi", 120, 11000, 188, 1, LocalDate.of(1989, 6, 4), 0, 0);
 
         assertEquals(velo, velo);
         assertNotEquals(velo, velo2);
@@ -76,7 +76,7 @@ class AVeloTest {
 
     @Test
     public void testToString() {
-        AVelo velo = new AVelo("Sortie dans l'après midi", 120, 11000, 188, 1, LocalDate.of(1989, 6, 4));
+        AVelo velo = new AVelo("Sortie dans l'après midi", 120, 11000, 188, 1, LocalDate.of(1989, 6, 4), 0, 0);
 
         assertEquals("AVelo{id= 1, nom= Sortie dans l'après midi, duree= 120, date= 1989-06-04, distance= 11000, watt= 188}", velo.toString());
     }
@@ -84,7 +84,7 @@ class AVeloTest {
     @Test
     void testGetWatt() {
         AVelo velo = new AVelo();
-        AVelo velo2 = new AVelo("Sortie dans l'après midi", 120, 11000, 188, 1, LocalDate.of(1989, 6, 4));
+        AVelo velo2 = new AVelo("Sortie dans l'après midi", 120, 11000, 188, 1, LocalDate.of(1989, 6, 4), 0, 0);
 
         assertEquals(0, velo.getWatt());
         assertEquals(188, velo2.getWatt());

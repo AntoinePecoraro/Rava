@@ -1,4 +1,4 @@
-package RavaClass;
+package Entity;
 
 import java.time.LocalDate;
 
@@ -9,8 +9,8 @@ public final class APied extends Activite {
         super();
     }
 
-    public APied(String nom, int duree, int distance, int nbPas, int id, LocalDate date) {
-        super(nom, duree, distance, id, date);
+    public APied(String nom, int duree, int distance, int nbPas, int id, LocalDate date, int idPersonne, int idMateriel) {
+        super(nom, duree, distance, id, date, idPersonne, idMateriel);
         this.nbPas = nbPas;
     }
 

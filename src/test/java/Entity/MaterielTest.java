@@ -1,4 +1,4 @@
-package RavaClass;
+package Entity;
 
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +9,7 @@ class MaterielTest {
     @Test
     public void testGetMarque() {
         Materiel m = new Materiel();
-        Materiel m2 = new Materiel("Orbea", "Orca M30");
+        Materiel m2 = new Materiel("Orbea", "Orca M30", 0);
         assertNull(m.getMarque());
         assertEquals("Orbea", m2.getMarque());
     }
@@ -24,7 +24,7 @@ class MaterielTest {
     @Test
     public void testGetModele() {
         Materiel m = new Materiel();
-        Materiel m2 = new Materiel("Orbea", "Orca M30");
+        Materiel m2 = new Materiel("Orbea", "Orca M30", 0);
         assertNull(m.getModele());
         assertEquals("Orca M30", m2.getModele());
     }
@@ -39,8 +39,8 @@ class MaterielTest {
     @Test
     public void testEquals() {
         Materiel m = new Materiel();
-        Materiel m2 = new Materiel("Orbea", "Orca M30");
-        Materiel m3 = new Materiel("Orbea", "Orca M30");
+        Materiel m2 = new Materiel("Orbea", "Orca M30", 1);
+        Materiel m3 = new Materiel("Orbea", "Orca M30", 1);
 
         assertEquals(m, m);
         assertNotEquals(m, m2);
@@ -50,7 +50,7 @@ class MaterielTest {
 
     @Test
     public void testToString() {
-        Materiel m = new Materiel("Orbea", "Orca M30");
+        Materiel m = new Materiel("Orbea", "Orca M30", 0);
         assertEquals("Materiel{marque= Orbea, modele= Orca M30}", m.toString());
     }
 }

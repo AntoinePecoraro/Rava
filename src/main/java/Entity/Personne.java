@@ -1,35 +1,50 @@
-package RavaClass;
+package Entity;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Objects;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 
-public class Personne {
+public class Personne implements Identifiable, Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private String nom = "Doe";
     private String prenom = "John";
     private int age = 21;
     private int weight = 70;
     private char sexe = 'M';
     private BufferedImage photo = null;
+    private int id = 0;
 
+    //region Constructeurs
     public Personne() {
 
     }
 
-    public Personne(String nom, String prenom, int age, int weight, char sexe) {
+    public Personne(String nom, String prenom, int age, int weight, char sexe, int id) {
         this.nom = nom;
         this.prenom = prenom;
         this.age = age;
         this.weight = weight;
         this.sexe = sexe;
+        this.id = id;
+        if (this.sexe != 'M' && this.sexe != 'F' && this.sexe != 'N') {
+            this.sexe = 'M';
+        }
+        if (this.age < 0) {
+            this.age = 0;
+        }
+        if (this.weight < 0) {
+            this.weight = 0;
+        }
     }
 
-    public Personne(String nom, String prenom, int age, int weight, char sexe, BufferedImage photo) {
-        this(nom, prenom, age, weight, sexe);
+    public Personne(String nom, String prenom, int age, int weight, char sexe, int id, BufferedImage photo) {
+        this(nom, prenom, age, weight, sexe, id);
         this.photo = photo;
     }
+    //endregion
 
     //region Setter et Getter
     public String getNom() {
@@ -68,19 +83,13 @@ public class Personne {
         this.photo = photo;
     }
 
-    public boolean setPhotoFromPath(String path) {
-        if (path == null || path.isEmpty()) {
-            this.photo = null;
-            return true;
-        }
+    @Override
+    public int getId() {
+        return id;
+    }
 
-        try {
-            this.photo = ImageIO.read(new File(path));
-            return true;
-        } catch (IOException e) {
-            System.err.println("Impossible de charger la photo : " + e.getMessage());
-            return false;
-        }
+    public void setId(int id) {
+        this.id = id;
     }
     //endregion
 
@@ -89,7 +98,7 @@ public class Personne {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Personne personne = (Personne) o;
-        return Objects.equals(getNom(), personne.getNom()) && Objects.equals(getPrenom(), personne.getPrenom());
+        return Objects.equals(getId(), personne.getId());
     }
 
     @Override
