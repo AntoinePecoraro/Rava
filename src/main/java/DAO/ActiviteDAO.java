@@ -11,7 +11,7 @@ public class ActiviteDAO extends DAO<Activite>{
 
     @Override
     protected String getFilename() {
-        return "activites.dat";
+        return "../../../ressources/saveFiles/activites.dat";
     }
 
     public List<APied> getActivitesAPied() {

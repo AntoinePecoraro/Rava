@@ -62,6 +62,14 @@ public abstract class Activite implements Identifiable, Serializable {
         return date;
     }
 
+    public int getIdPersonne() {
+        return idPersonne;
+    }
+
+    public int getIdMateriel() {
+        return idMateriel;
+    }
+
     //endregion
 
 

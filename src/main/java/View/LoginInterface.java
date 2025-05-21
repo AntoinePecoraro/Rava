@@ -53,33 +53,10 @@ public class LoginInterface extends JFrame {
         // Ajout du conteneur principal à la fenêtre
         add(mainPanel);
 
-        // Gestionnaires d'événements
-        loginButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String username = usernameField.getText();
-                String password = new String(passwordField.getPassword());
-
-                // Ici, ajoutez votre logique d'authentification
-                JOptionPane.showMessageDialog(LoginInterface.this,
-                        "Tentative de connexion avec:\nUtilisateur: " + username);
-            }
-        });
-
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new LoginInterface().setVisible(true);
-            }
-        });
+    public void addActionListeners(ActionListener listener) {
+        cancelButton.addActionListener(listener);
+        loginButton.addActionListener(listener);
     }
 }

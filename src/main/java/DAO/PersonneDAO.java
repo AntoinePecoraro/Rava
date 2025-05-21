@@ -13,7 +13,7 @@ public class PersonneDAO extends DAO<Personne> {
 
     @Override
     protected String getFilename() {
-        return "personnes.dat";
+        return "../../../ressources/saveFiles/personnes.dat";
     }
 
     // Méthodes spécifiques aux personnes

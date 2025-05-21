@@ -7,11 +7,27 @@ import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class ApplicationInterface extends JFrame {
     private JTable dataTable;
     private DefaultTableModel tableModel;
 
+    private JButton ajouterBtn;
+    private JButton supprimerBtn;
+    private JButton loginBtn;
+    private JButton rechercheBtn;
+    private JComboBox<String> sportCombo;
+    private JComboBox<String> sexeCombo;
+    private JComboBox<String> filterCombo;
+    private JCheckBox globalCheckBox;
+    private JCheckBox personnelCheckBox;
+
+    // Création d'un modèle de table vide avec des colonnes
+    static String[] columnsAVelo = {"id", "Nom Activité", "Sportif", "Distance", "Date", "Puissance Moy"};
+    static String[] columnsAPieds = {"id", "Nom Activité", "Sportif", "Distance", "Date", "Nb pas"};
+
+    //region Initialisation
     public ApplicationInterface() {
         // Configuration de la fenêtre principale
         setTitle("RavaJ Main Page");
@@ -37,6 +53,7 @@ public class ApplicationInterface extends JFrame {
         setVisible(true);
     }
 
+
     private JPanel createTopToolbar() {
         JPanel topToolbar = new JPanel();
         topToolbar.setLayout(new BorderLayout());
@@ -45,10 +62,10 @@ public class ApplicationInterface extends JFrame {
         // Partie gauche de la barre d'outils
         JPanel leftButtons = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-        JButton ajouterBtn = new JButton("Ajouter");
+        ajouterBtn = new JButton("Ajouter");
         ajouterBtn.setBackground(new Color(0, 0, 139)); // Bleu foncé
 
-        JButton supprimerBtn = new JButton("Supprimer");
+        supprimerBtn = new JButton("Supprimer");
         supprimerBtn.setBackground(new Color(0, 0, 139)); // Bleu foncé
 
         leftButtons.add(ajouterBtn);
@@ -57,7 +74,7 @@ public class ApplicationInterface extends JFrame {
         // Partie droite de la barre d'outils
         JPanel rightButtons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
-        JButton loginBtn = new JButton("Login");
+        loginBtn = new JButton("Login");
         loginBtn.setBackground(new Color(255, 0, 0));
 
         rightButtons.add(loginBtn);
@@ -83,23 +100,23 @@ public class ApplicationInterface extends JFrame {
         // Partie gauche avec les filtres
         JPanel researchMenu = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-        JComboBox<String> sportCombo = new JComboBox<>(new String[]{"Sport"});
+        sportCombo = new JComboBox<>(new String[]{"Sport"});
         sportCombo.setPreferredSize(new Dimension(100, 20));
 
         sportCombo.addItem("Cyclisme");
         sportCombo.addItem("Footing");
 
-        JComboBox<String> sexeCombo = new JComboBox<>(new String[]{"Sexe"});
+        sexeCombo = new JComboBox<>(new String[]{"Sexe"});
         sexeCombo.setPreferredSize(new Dimension(100, 20));
 
         sexeCombo.addItem("Masculin");
         sexeCombo.addItem("Feminin");
 
         // 2 options à cocher (soit personnel soit global)
-        JCheckBox globalCheckBox = new JCheckBox("Global");
+        globalCheckBox = new JCheckBox("Global");
         globalCheckBox.setSelected(true);
 
-        JCheckBox personnelCheckBox = new JCheckBox("Personnel");
+        personnelCheckBox = new JCheckBox("Personnel");
         personnelCheckBox.setSelected(false);
 
         // Mettre des events listeners pour éviter que les 2 soient cochés en mm temps
@@ -129,7 +146,7 @@ public class ApplicationInterface extends JFrame {
             }
         });
 
-        JButton rechercheBtn = new JButton("Recherche");
+        rechercheBtn = new JButton("Recherche");
         rechercheBtn.setBackground(new Color(0, 200, 50));
 
         researchMenu.add(sportCombo);
@@ -143,7 +160,7 @@ public class ApplicationInterface extends JFrame {
 
         // Partie droite avec menu déroulant  -> Menu déroulant qui demande quel type de tri on veut effectuer (nom, distance de l'activité, ...)
         JPanel filterMenu = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        JComboBox<String> filterCombo = new JComboBox<>(new String[]{"Par nom"});
+        filterCombo = new JComboBox<>(new String[]{"Par nom"});
         filterCombo.setPreferredSize(new Dimension(100, 20));
 
         // autres options
@@ -164,10 +181,8 @@ public class ApplicationInterface extends JFrame {
         JPanel tablePanel = new JPanel(new BorderLayout());
         tablePanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
-        // Création d'un modèle de table vide avec des colonnes
-        String[] columnsAVelo = {"id", "Nom Activité", "Sportif", "Distance", "Date", "Puissance Moy"};
-        String[] columnsAPieds = {"id", "Nom Activité", "Sportif", "Distance", "Date", "Nb pas"};
-        Object[][] data = new Object[20][6]; // Table vide avec 20 lignes
+
+        Object[][] data = new Object[100][6]; // Table vide avec 20 lignes
 
         tableModel = new DefaultTableModel(data, columnsAVelo);
         dataTable = new JTable(tableModel) {
@@ -204,21 +219,31 @@ public class ApplicationInterface extends JFrame {
 
         return tablePanel;
     }
+    //endregion
 
-    public static void main(String[] args) {
-        // Appliquer le look and feel du système
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
+    public void afficheActivite(List<Object[]> lignes) {
+        tableModel.setRowCount(0);
+
+        for (Object[] ligne : lignes) {
+            tableModel.addRow(ligne);
         }
 
-        // Lancer l'application
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new ApplicationInterface();
-            }
-        });
+        dataTable.repaint();
     }
+
+    public void changerColonnesActivite(boolean type) {
+        if (type) {
+            tableModel.setColumnIdentifiers(columnsAVelo);
+        } else {
+            tableModel.setColumnIdentifiers(columnsAPieds);
+        }
+    }
+
+    public void addActionListeners(ActionListener listener) {
+        rechercheBtn.addActionListener(listener);
+        ajouterBtn.addActionListener(listener);
+        supprimerBtn.addActionListener(listener);
+        loginBtn.addActionListener(listener);
+    }
+
 }
