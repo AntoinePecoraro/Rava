@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 public class LoginInterface extends JFrame {
 
     private JTextField usernameField;
+    private JTextField nameField;
     private JPasswordField passwordField;
     private JButton loginButton;
     private JButton cancelButton;
@@ -15,7 +16,7 @@ public class LoginInterface extends JFrame {
     public LoginInterface() {
         // Configuration de la fenêtre
         setTitle("Page de login");
-        setSize(300, 200);
+        setSize(400, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);

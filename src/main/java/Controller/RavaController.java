@@ -40,7 +40,7 @@ public class RavaController implements ActionListener {
                 System.exit(0);
                 break;
             case "Se connecter":
-
+                break;
             case "Annuler":
                 System.out.println("so sigma");
                 loginView.setVisible(false);
@@ -60,9 +60,9 @@ public class RavaController implements ActionListener {
             Object[] ligne;
 
             if (activite instanceof AVelo){
-                ligne = new Object[]{activite.getId(), activite.getNom(), sportif.getNom() + " " + sportif.getPrenom() + "\t" + sportif.getSexe(), activite.getDistance() + " km", activite.getDate(), ((AVelo) activite).getWatt() + " W"};
+                ligne = new Object[]{activite.getId(), activite.getNom(), sportif.getNom() + " " + sportif.getPrenom() + "\t" + sportif.getSexe(), activite.getDistance() + " km", "\\", activite.getDate(), ((AVelo) activite).getWatt() + " W"};
             } else{
-                ligne = new Object[]{activite.getId(), activite.getNom(), sportif.getNom() + " " + sportif.getPrenom() + "\t" + sportif.getSexe(), activite.getDistance() + " km", activite.getDate(), ((APied) activite).getNbPas()};
+                ligne = new Object[]{activite.getId(), activite.getNom(), sportif.getNom() + " " + sportif.getPrenom() + "\t" + sportif.getSexe(), activite.getDistance() + " km", activite.getDate(), ((APied) activite).getNbPas(), "\\"};
             }
 
             lignes.add(ligne);

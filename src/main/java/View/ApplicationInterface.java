@@ -24,8 +24,7 @@ public class ApplicationInterface extends JFrame {
     private JCheckBox personnelCheckBox;
 
     // Création d'un modèle de table vide avec des colonnes
-    static String[] columnsAVelo = {"id", "Nom Activité", "Sportif", "Distance", "Date", "Puissance Moy"};
-    static String[] columnsAPieds = {"id", "Nom Activité", "Sportif", "Distance", "Date", "Nb pas"};
+    static String[] columns = {"id", "Nom Activité", "Sportif", "Distance", "Date", "Nb pas", "Puissance Moy"};
 
     //region Initialisation
     public ApplicationInterface() {
@@ -182,9 +181,9 @@ public class ApplicationInterface extends JFrame {
         tablePanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
 
-        Object[][] data = new Object[100][6]; // Table vide avec 20 lignes
+        Object[][] data = new Object[100][7]; // Table vide avec 100 lignes
 
-        tableModel = new DefaultTableModel(data, columnsAVelo);
+        tableModel = new DefaultTableModel(data, columns);
         dataTable = new JTable(tableModel) {
             @Override
             public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
@@ -229,14 +228,6 @@ public class ApplicationInterface extends JFrame {
         }
 
         dataTable.repaint();
-    }
-
-    public void changerColonnesActivite(boolean type) {
-        if (type) {
-            tableModel.setColumnIdentifiers(columnsAVelo);
-        } else {
-            tableModel.setColumnIdentifiers(columnsAPieds);
-        }
     }
 
     public void addActionListeners(ActionListener listener) {
