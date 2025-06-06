@@ -99,13 +99,13 @@ public class ApplicationInterface extends JFrame {
         // Partie gauche avec les filtres
         JPanel researchMenu = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-        sportCombo = new JComboBox<>(new String[]{"Sport"});
+        sportCombo = new JComboBox<>(new String[]{"Tous les sports"});
         sportCombo.setPreferredSize(new Dimension(100, 20));
 
         sportCombo.addItem("Cyclisme");
         sportCombo.addItem("Footing");
 
-        sexeCombo = new JComboBox<>(new String[]{"Sexe"});
+        sexeCombo = new JComboBox<>(new String[]{"Tous les sexes"});
         sexeCombo.setPreferredSize(new Dimension(100, 20));
 
         sexeCombo.addItem("Masculin");
@@ -182,7 +182,6 @@ public class ApplicationInterface extends JFrame {
 
 
         Object[][] data = new Object[100][7]; // Table vide avec 100 lignes
-
         tableModel = new DefaultTableModel(data, columns);
         dataTable = new JTable(tableModel) {
             @Override
@@ -210,6 +209,10 @@ public class ApplicationInterface extends JFrame {
 
         dataTable.getTableHeader().setReorderingAllowed(false);
         dataTable.getTableHeader().setResizingAllowed(false);
+        dataTable.setRowSelectionAllowed(false);
+        dataTable.setColumnSelectionAllowed(true);
+        dataTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        dataTable.setCellSelectionEnabled(false);
 
         JScrollPane scrollPane = new JScrollPane(dataTable);
         tablePanel.add(scrollPane, BorderLayout.CENTER);
@@ -219,6 +222,31 @@ public class ApplicationInterface extends JFrame {
         return tablePanel;
     }
     //endregion
+
+    public boolean getGlobal()
+    {
+        if(globalCheckBox.isSelected())
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public String getSport()
+    {
+        return  sportCombo.getSelectedItem().toString();
+    }
+
+    public String getSexe()
+    {
+        return  sexeCombo.getSelectedItem().toString();
+    }
+
+    public String getFilter()
+    {
+        return  filterCombo.getSelectedItem().toString();
+    }
+
 
     public void afficheActivite(List<Object[]> lignes) {
         tableModel.setRowCount(0);

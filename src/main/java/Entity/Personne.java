@@ -29,7 +29,7 @@ public class Personne implements Identifiable, Serializable {
         this.weight = weight;
         this.sexe = sexe;
         this.id = id;
-        if (this.sexe != 'M' && this.sexe != 'F' && this.sexe != 'N') {
+        if (this.sexe != 'M' && this.sexe != 'F') {
             this.sexe = 'M';
         }
         if (this.age < 0) {
