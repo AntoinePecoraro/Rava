@@ -13,12 +13,21 @@ public class PersonneDAO extends DAO<Personne> {
 
     @Override
     protected String getFilename() {
-        return "../../../ressources/saveFiles/personnes.dat";
+        return "./src/ressources/saveFiles/personnes.dat";
     }
 
-    // Méthodes spécifiques aux personnes
-    public List<Personne> findByNom(String nom) {
-        return elements.values().stream().filter(p -> p.getNom().equalsIgnoreCase(nom)).collect(Collectors.toList());
+    public boolean existByUsername(String username) {
+        return elements.values()
+                .stream()
+                .anyMatch(personne -> personne.getUsername().equals(username));
+    }
+
+    public Personne findByUsername(String username) {
+        return elements.values()
+                .stream()
+                .filter(personne -> personne.getUsername().equals(username))
+                .findFirst()
+                .orElse(null);
     }
 
     public boolean setPhotoFromPath(int personneId, String cheminPhoto) {

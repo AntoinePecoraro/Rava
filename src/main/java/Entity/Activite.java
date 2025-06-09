@@ -10,19 +10,19 @@ public abstract class Activite implements Identifiable, Serializable {
     protected int id = 0;
     protected LocalDate date = LocalDate.now();
     protected int idPersonne = 0;
-    protected int idMateriel = 0;
+    protected String materiel = null;
 
     public Activite() {
     }
 
-    public Activite(String nom, int duree, int distance, int id, LocalDate date, int idPersonne, int idMateriel) {
+    public Activite(String nom, int duree, int distance, int id, LocalDate date, int idPersonne, String materiel) {
         this.nom = nom;
         this.duree = duree;
         this.distance = distance;
         this.id = id;
         this.date = date;
         this.idPersonne = idPersonne;
-        this.idMateriel = idMateriel;
+        this.materiel = materiel;
         if (this.duree < 0) {
             this.duree = 0;
         }
@@ -66,8 +66,8 @@ public abstract class Activite implements Identifiable, Serializable {
         return idPersonne;
     }
 
-    public int getIdMateriel() {
-        return idMateriel;
+    public String getMateriel() {
+        return materiel;
     }
 
     //endregion

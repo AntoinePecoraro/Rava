@@ -3,6 +3,8 @@ package View;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class LoginInterface extends JFrame {
 
@@ -19,20 +21,45 @@ public class LoginInterface extends JFrame {
     private JPasswordField confirmPasswordField;
     private JButton createAccountButton;
 
+    // Boutons radio pour le sexe
+    private JRadioButton maleRadioButton;
+    private JRadioButton femaleRadioButton;
+    private JRadioButton otherRadioButton;
+    private ButtonGroup genderButtonGroup;
+
     // Bouton commun
     private JButton cancelButton;
+
+    public interface WindowCloseListener {
+        void onWindowClosed();
+    }
+
+    private AddActivity.WindowCloseListener closeListener;
 
     public LoginInterface() {
         // Configuration de la fenêtre
         setTitle("Connexion - Application");
-        setSize(400, 450);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(420, 600); // Augmentation de la hauteur pour accommoder les nouveaux champs
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                if (closeListener != null) {
+                    closeListener.onWindowClosed();
+                }
+            }
+        });
 
         // Création du panneau principal avec BorderLayout
         JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
         mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        // Header page
+        JPanel headerPanel = createHeaderPanel();
+        mainPanel.add(headerPanel, BorderLayout.NORTH);
 
         // Création du JTabbedPane
         JTabbedPane tabbedPane = new JTabbedPane();
@@ -45,17 +72,31 @@ public class LoginInterface extends JFrame {
         JPanel registerPanel = createRegisterPanel();
         tabbedPane.addTab("Créer un compte", registerPanel);
 
-        // Panneau pour le bouton annuler (commun aux deux onglets)
-        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        cancelButton = new JButton("Annuler");
-        bottomPanel.add(cancelButton);
-
-        // Ajout des composants au panneau principal
         mainPanel.add(tabbedPane, BorderLayout.CENTER);
-        mainPanel.add(bottomPanel, BorderLayout.SOUTH);
+
+        // Footer avec bouton intégré
+        JPanel footerPanel = createFooterPanel();
+        mainPanel.add(footerPanel, BorderLayout.SOUTH);
 
         // Ajout du conteneur principal à la fenêtre
         add(mainPanel);
+    }
+
+    public void setWindowCloseListener(AddActivity.WindowCloseListener listener) {
+        this.closeListener = listener;
+    }
+
+    private JPanel createHeaderPanel() {
+        JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        headerPanel.setBackground(new Color(30, 144, 255)); // DodgerBlue
+        headerPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        JLabel titleLabel = new JLabel("Connexion - Application");
+        titleLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 16));
+        titleLabel.setForeground(Color.WHITE);
+
+        headerPanel.add(titleLabel);
+        return headerPanel;
     }
 
     private JPanel createLoginPanel() {
@@ -133,8 +174,19 @@ public class LoginInterface extends JFrame {
         lastNameField.setPreferredSize(new Dimension(200, 25));
         fieldsPanel.add(lastNameField, gbc);
 
+        // Ajout de la sélection du sexe
         gbc.gridx = 0;
         gbc.gridy = 2;
+        gbc.anchor = GridBagConstraints.EAST;
+        fieldsPanel.add(new JLabel("Sexe:"), gbc);
+
+        gbc.gridx = 1;
+        gbc.anchor = GridBagConstraints.WEST;
+        JPanel genderPanel = createGenderPanel();
+        fieldsPanel.add(genderPanel, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
         gbc.anchor = GridBagConstraints.EAST;
         fieldsPanel.add(new JLabel("Nom d'utilisateur:"), gbc);
 
@@ -145,7 +197,7 @@ public class LoginInterface extends JFrame {
         fieldsPanel.add(newUsernameField, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         gbc.anchor = GridBagConstraints.EAST;
         fieldsPanel.add(new JLabel("Mot de passe:"), gbc);
 
@@ -156,7 +208,7 @@ public class LoginInterface extends JFrame {
         fieldsPanel.add(newPasswordField, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         gbc.anchor = GridBagConstraints.EAST;
         fieldsPanel.add(new JLabel("Confirmer mot de passe:"), gbc);
 
@@ -175,6 +227,58 @@ public class LoginInterface extends JFrame {
         panel.add(buttonPanel, BorderLayout.SOUTH);
 
         return panel;
+    }
+
+    private JPanel createGenderPanel() {
+        JPanel genderPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+
+        // Création des boutons radio
+        maleRadioButton = new JRadioButton("Homme");
+        maleRadioButton.setSelected(true);
+        femaleRadioButton = new JRadioButton("Femme");
+        otherRadioButton = new JRadioButton("Autre");
+
+        // Création du groupe pour les boutons radio (un seul peut être sélectionné)
+        genderButtonGroup = new ButtonGroup();
+        genderButtonGroup.add(maleRadioButton);
+        genderButtonGroup.add(femaleRadioButton);
+        genderButtonGroup.add(otherRadioButton);
+
+        // Ajout des boutons au panneau
+        genderPanel.add(maleRadioButton);
+        genderPanel.add(femaleRadioButton);
+        genderPanel.add(otherRadioButton);
+
+        return genderPanel;
+    }
+
+    private JPanel createFooterPanel() {
+        JPanel footerPanel = new JPanel(new BorderLayout());
+        footerPanel.setBackground(new Color(211, 211, 211)); // LightGray
+        footerPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        // Panneau pour le bouton à droite
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        buttonPanel.setBackground(new Color(211, 211, 211));
+
+        cancelButton = new JButton("Annuler");
+        cancelButton.setBackground(Color.GRAY);
+        cancelButton.setForeground(Color.WHITE);
+        cancelButton.setPreferredSize(new Dimension(100, 30));
+        cancelButton.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
+        cancelButton.setFocusPainted(false);
+        cancelButton.setBorderPainted(false);
+
+        buttonPanel.add(cancelButton);
+        footerPanel.add(buttonPanel, BorderLayout.CENTER);
+
+        return footerPanel;
+    }
+
+    public void addActionListeners(ActionListener listener) {
+        cancelButton.addActionListener(listener);
+        loginButton.addActionListener(listener);
+        createAccountButton.addActionListener(listener);
     }
 
     // Getters pour récupérer les valeurs des champs (connexion)
@@ -207,17 +311,17 @@ public class LoginInterface extends JFrame {
         return new String(confirmPasswordField.getPassword());
     }
 
-    // Getters pour les boutons (pour identifier quelle action a été effectuée)
-    public JButton getLoginButton() {
-        return loginButton;
-    }
-
-    public JButton getCreateAccountButton() {
-        return createAccountButton;
-    }
-
-    public JButton getCancelButton() {
-        return cancelButton;
+    // Nouveau getter pour récupérer le sexe sélectionné
+    public String getSelectedGender() {
+        if (maleRadioButton.isSelected()) {
+            return "Homme";
+        } else if (femaleRadioButton.isSelected()) {
+            return "Femme";
+        } else if (otherRadioButton.isSelected()) {
+            return "Autre";
+        } else {
+            return null; // Aucune sélection
+        }
     }
 
     // Méthodes utilitaires pour vider les champs
@@ -232,10 +336,7 @@ public class LoginInterface extends JFrame {
         newUsernameField.setText("");
         newPasswordField.setText("");
         confirmPasswordField.setText("");
-    }
-
-    public void addActionListeners(ActionListener listener) {
-        cancelButton.addActionListener(listener);
-        loginButton.addActionListener(listener);
+        // Désélectionner tous les boutons radio
+        genderButtonGroup.clearSelection();
     }
 }

@@ -11,8 +11,7 @@ public class Personne implements Identifiable, Serializable {
 
     private String nom = "Doe";
     private String prenom = "John";
-    private int age = 21;
-    private int weight = 70;
+    private String username = "JohnDoe";
     private char sexe = 'M';
     private BufferedImage photo = null;
     private int id = 0;
@@ -22,26 +21,20 @@ public class Personne implements Identifiable, Serializable {
 
     }
 
-    public Personne(String nom, String prenom, int age, int weight, char sexe, int id) {
+    public Personne(String nom, String prenom, String username, char sexe, int id) {
         this.nom = nom;
         this.prenom = prenom;
-        this.age = age;
-        this.weight = weight;
+        this.username = username;
+
         this.sexe = sexe;
         this.id = id;
-        if (this.sexe != 'M' && this.sexe != 'F') {
+        if (this.sexe != 'M' && this.sexe != 'F' && this.sexe != 'N') {
             this.sexe = 'M';
-        }
-        if (this.age < 0) {
-            this.age = 0;
-        }
-        if (this.weight < 0) {
-            this.weight = 0;
         }
     }
 
-    public Personne(String nom, String prenom, int age, int weight, char sexe, int id, BufferedImage photo) {
-        this(nom, prenom, age, weight, sexe, id);
+    public Personne(String nom, String prenom, String username, char sexe, int id, BufferedImage photo) {
+        this(nom, prenom, username, sexe, id);
         this.photo = photo;
     }
     //endregion
@@ -55,24 +48,8 @@ public class Personne implements Identifiable, Serializable {
         return prenom;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public int getWeight() {
-        return weight;
-    }
-
     public char getSexe() {
         return sexe;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public void setWeight(int weight) {
-        this.weight = weight;
     }
 
     public BufferedImage getPhoto() {
@@ -81,6 +58,11 @@ public class Personne implements Identifiable, Serializable {
 
     public void setPhoto(BufferedImage photo) {
         this.photo = photo;
+    }
+
+    public String getUsername()
+    {
+        return username;
     }
 
     @Override
@@ -107,8 +89,6 @@ public class Personne implements Identifiable, Serializable {
                 "nom= " + nom +
                 ", prenom= " + prenom +
                 ", sexe= " + sexe +
-                ", age= " + age +
-                ", weight= " + weight +
                 ", photo= " + (photo != null ? "présente" : "absente") +
                 '}';
     }

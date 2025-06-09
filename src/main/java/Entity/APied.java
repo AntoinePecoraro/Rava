@@ -9,8 +9,8 @@ public final class APied extends Activite {
         super();
     }
 
-    public APied(String nom, int duree, int distance, int nbPas, int id, LocalDate date, int idPersonne, int idMateriel) {
-        super(nom, duree, distance, id, date, idPersonne, idMateriel);
+    public APied(String nom, int duree, int distance, int nbPas, int id, LocalDate date, int idPersonne, String materiel) {
+        super(nom, duree, distance, id, date, idPersonne, materiel);
         this.nbPas = nbPas;
     }
 

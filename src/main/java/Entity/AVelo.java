@@ -9,8 +9,8 @@ public final class AVelo extends Activite {
         super();
     }
 
-    public AVelo(String nom, int duree, int distance, int watt, int id, LocalDate date, int idPersonne, int idMateriel) {
-        super(nom, duree, distance, id, date, idPersonne, idMateriel);
+    public AVelo(String nom, int duree, int distance, int watt, int id, LocalDate date, int idPersonne, String materiel) {
+        super(nom, duree, distance, id, date, idPersonne, materiel);
         this.watt = watt;
     }
 
